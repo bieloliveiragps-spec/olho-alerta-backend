@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olho Alerta</title>
+  <link rel="stylesheet" href="olhoalerta.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <img src="C:\Users\SAMSUNG\Pictures\Screenshots\Captura de tela 2025-11-26 143225.png" alt="Ícone Olho" class="icon">
+        <span class="titulo"><b>OLHO ALERTA</b></span>
+    </div>
+
+    <nav>
+      <button onclick="mostrarPagina('inicio')" class="ativo">Início</button>
+      <button onclick="mostrarPagina('sobre')">Sobre</button>
+      <button onclick="mostrarPagina('tutorial')">Tutorial</button>
+      <button onclick="mostrarPagina('denunciar')">Denunciar</button>
+      <button onclick="mostrarPagina('contato')">Contato</button>
+    </nav>
+
+    <button class="modo-btn">🌙</button>
+</header>
+
+<main>
+
+<section id="inicio" class="pagina ativa">
+    <h1 class="titulo-principal">Olho Alerta: Um Projeto em prol da população</h1>
+
+    <p class="descricao">
+        Aqui você pode fazer um pedido de acesso à informação, fazer denúncias, 
+        elogios, reclamações, solicitações ou enviar sugestões.
+    </p>
+
+    <div class="botoes-container">
+        <button class="botao" onclick="mostrarPagina('acesso')">🧾 Acesso à informação</button>
+        <button class="botao" onclick="mostrarPagina('denunciar')">🚨 Registrar denúncia</button>
+        <button class="botao" onclick="mostrarPagina('feedback')">👌 Dar feedback</button>
+        <button class="botao" onclick="mostrarPagina('sugestoes')">💡 Realizar sugestões</button>
+    </div>
+</section>
+
+<section id="acesso" class="pagina">
+
+  <div class="topo-acesso">
+    <h1>🔍 Central de Acesso à Informação</h1>
+    <p>Consulte dados públicos, solicite documentos oficiais e acompanhe tudo em um só lugar.</p>
+  </div>
+
+  <div class="busca-publica">
+    <h2>🔎 Consulta Rápida</h2>
+    <input type="text" placeholder="O que você deseja consultar?">
+    
+    <div class="categorias">
+  <button onclick="preencherPedido('gastos públicos')">Gastos Públicos</button>
+  <button onclick="preencherPedido('obras públicas')">Obras</button>
+  <button onclick="preencherPedido('contratos públicos')">Contratos</button>
+  <button onclick="preencherPedido('salários')">Salários</button>
+  <button onclick="preencherPedido('informações da educação')">Educação</button>
+  <button onclick="preencherPedido('informações da saúde')">Saúde</button>
+  <button onclick="preencherPedido('informações de transporte')">Transporte</button>
+</div>
+  </div>
+
+  <div class="formulario-acesso">
+    <h2>📝 Solicitar Informação Oficial</h2>
+
+   <form onsubmit="enviarAcesso(event)">
+
+  <input type="text" id="nomeAcesso" placeholder="Nome (opcional)">
+
+  <input type="email" id="emailAcesso" placeholder="E-mail para resposta" required>
+
+  <select id="orgaoAcesso" required>
+    <option value="">Órgão público responsável</option>
+    <option>Prefeitura</option>
+    <option>Secretaria de Saúde</option>
+    <option>Secretaria de Educação</option>
+    <option>Câmara Municipal</option>
+    <option>Outro</option>
+  </select>
+
+  <select id="tipoAcesso" required>
+    <option value="">Tipo de informação solicitada</option>
+    <option>Gastos públicos</option>
+    <option>Contratos</option>
+    <option>Obras públicas</option>
+    <option>Servidores e salários</option>
+    <option>Educação</option>
+    <option>Saúde</option>
+    <option>Transporte</option>
+    <option>Outros</option>
+  </select>
+
+  <textarea
+    id="descricaoAcesso"
+    required
+    placeholder="Descreva de forma clara a informação desejada. Ex: Relatório de gastos com merenda escolar em 2024.">
+  </textarea>
+
+  <select id="formatoAcesso">
+    <option>Digital (PDF)</option>
+    <option>Planilha (Excel)</option>
+    <option>Texto simples</option>
+  </select>
+
+  <select id="finalidadeAcesso">
+    <option>Fiscalização cidadã</option>
+    <option>Estudo ou pesquisa</option>
+    <option>Uso pessoal</option>
+    <option>Outros</option>
+  </select>
+
+  <button type="submit">📩 Enviar Pedido de Acesso</button>
+
+</form>
+
+  </div>
+</section>
+ <section id="feedback" class="pagina">
+
+  <div class="topo-feedback">
+    <h1>💬 Área de Feedback</h1>
+    <p>Sua opinião é essencial para melhorar nossos serviços.</p>
+  </div>
+
+  <div class="form-feedback">
+    <h2>✍️ Enviar Feedback</h2>
+
+    <form onsubmit="enviarFeedback(event)">
+  <input type="text" id="nomeFeedback" placeholder="Seu nome (opcional)">
+  
+  <select id="tipoFeedback" required>
+    <option value="">Tipo de Feedback</option>
+    <option>Elogio</option>
+    <option>Reclamação</option>
+    <option>Sugestão</option>
+    <option>Crítica construtiva</option>
+  </select>
+
+  <textarea id="mensagemFeedback" required></textarea>
+
+  <button type="submit">Enviar Feedback</button>
+  <p id="retornoFeedback"></p>
+</form>
+
+  </div>
+
+  <div class="feedbacks-recentes">
+    <h2>🗣️ Feedbacks Recentes</h2>
+
+    <div class="card-feedback">
+      <strong>Anônimo:</strong>
+      <p>Site muito fácil de usar! Parabéns pela iniciativa.</p>
+    </div>
+
+    <div class="card-feedback">
+      <strong>Maria:</strong>
+      <p>Seria legal ter uma área para acompanhar denúncias.</p>
+    </div>
+
+    <div class="card-feedback">
+      <strong>João:</strong>
+      <p>Gostei bastante da área de acesso à informação.</p>
+    </div>
+  </div>
+
+</section>
+
+<section id="sugestoes" class="pagina">
+
+  <div class="topo-sugestoes">
+    <h1>💡 Envie sua Sugestão</h1>
+    <p>Ajude a melhorar nossos serviços com suas ideias e propostas.</p>
+  </div>
+
+  <div class="box-sugestao">
+    <h2>✍️ Formulário de Sugestão</h2>
+
+      <form onsubmit="enviarSugestao(event)">
+  <input type="text" id="nomeSugestao" placeholder="Seu nome (opcional)">
+
+  <select id="categoriaSugestao" required>
+    <option value="">Categoria</option>
+    <option>Site</option>
+    <option>Atendimento</option>
+    <option>Transparência</option>
+    <option>Segurança</option>
+    <option>Outros</option>
+  </select>
+
+  <textarea id="mensagemSugestao" required></textarea>
+
+  <button type="submit">Enviar Sugestão</button>
+  <p id="retornoSugestao"></p>
+</form>
+  </div>
+
+  <div class="sugestoes-recentes">
+    <h2>📌 Sugestões Recentes</h2>
+
+    <div class="card-sugestao">
+      <strong>Anônimo:</strong>
+      <p>Seria ótimo ter notificações por e-mail sobre o status das denúncias.</p>
+    </div>
+
+    <div class="card-sugestao">
+      <strong>Paulo:</strong>
+      <p>Poderia existir um aplicativo do Olho Alerta.</p>
+    </div>
+  </div>
+
+</section>
+
+<section id="sobre" class="pagina">
+
+    <section class="hero">
+        <h1>Sobre o Projeto</h1>
+        <p>
+            O Olho Alerta é uma iniciativa criada para facilitar o registro de microproblemas 
+            e situações que impactam o dia a dia dos cidadãos. Aqui você encontra um sistema simples, 
+            rápido e totalmente anônimo, desenvolvido para tornar sua cidade ou ambiente de trabalho mais seguro e funcional.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>Nossa Missão</h2>
+        <p>
+            Tornar o ato de relatar problemas algo acessível, prático e sem burocracia, 
+            permitindo que qualquer pessoa participe da manutenção e melhoria dos espaços públicos 
+            e privados.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>O que oferecemos</h2>
+
+        <div class="cards">
+            <div class="card">
+                <h3>✔ Plataforma intuitiva</h3>
+                <p>Relate situações em segundos e sem formulários confusos.</p>
+            </div>
+
+            <div class="card">
+                <h3>✔ Total anonimato</h3>
+                <p>A privacidade do cidadão é prioridade — nenhuma identificação é exigida.</p>
+            </div>
+
+            <div class="card">
+                <h3>✔ Comunicação eficiente</h3>
+                <p>Os relatos podem ajudar setores públicos ou privados a agir mais rápido.</p>
+            </div>
+
+            <div class="card">
+                <h3>✔ Acesso à informação</h3>
+                <p>Peça informações oficiais de maneira organizada e com poucos cliques.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Nosso Objetivo</h2>
+        <p>
+            Facilitar a vida da população e promover ambientes mais seguros, funcionais, 
+            transparentes e bem cuidados.
+        </p>
+    </section>
+
+</section>
+
+<section id="tutorial" class="pagina hidden">
+    <h1 class="titulo-principal">Como usar o site</h1>
+
+    <p>
+        Este guia foi criado para ajudar cidadãos e clientes a utilizarem o sistema de forma simples,
+        rápida e sem complicações. Siga o passo a passo e aprenda como navegar pelo site e realizar
+        suas ações com segurança.
+    </p>
+
+    <div class="tutorial-passos">
+        
+        <div class="passo">
+            <h3>1. Acesse o Menu Principal</h3>
+            <p>
+                No topo da página, você encontrará o menu com as opções <strong>Início</strong>, 
+                <strong>Sobre</strong>, <strong>Tutorial</strong>, <strong>Denunciar</strong> e 
+                <strong>Contato</strong>. Clique na aba desejada para acessar seu conteúdo.
+            </p>
+        </div>
+
+        <div class="passo">
+            <h3>2. Leia as Informações Importantes</h3>
+            <p>
+                Cada aba contém textos explicativos para orientar o usuário. As informações são organizadas
+                em blocos para facilitar a leitura e deixar tudo mais claro.
+            </p>
+        </div>
+
+        <div class="passo">
+            <h3>3. Faça sua Denúncia</h3>
+            <p>
+                Se você precisa reportar alguma irregularidade, acesse a aba <strong>Denunciar</strong>.
+                Lá você encontrará um formulário simples e direto para enviar sua denúncia.
+            </p>
+        </div>
+
+        <div class="passo">
+            <h3>4. Entre em Contato</h3>
+            <p>
+                Caso tenha dúvidas ou precise de suporte, vá até a aba <strong>Contato</strong>.
+                Você poderá enviar mensagens diretamente para nossa equipe, que responderá o mais rápido possível.
+            </p>
+        </div>
+
+        <div class="passo">
+            <h3>5. Navegação Rápida</h3>
+            <p>
+                Todas as páginas foram feitas para serem fáceis de usar tanto no computador quanto no celular.  
+                Caso algo não funcione como esperado, recarregue a página ou tente acessar novamente pelo menu.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<section id="denunciar" class="pagina hidden">
+
+    <h2>Denunciar Irregularidade</h2>
+
+    <p class="intro-denuncia">
+        Utilize este formulário para reportar irregularidades de forma segura e confidencial.
+        A sua identidade será protegida e você pode escolher enviar sua denúncia anonimamente.
+    </p>
+
+    <div class="aviso-denuncia">
+        <strong>Atenção:</strong>
+        <ul>
+            <li>Forneça o máximo de detalhes possível sobre o ocorrido.</li>
+            <li>O envio de anexos é opcional.</li>
+            <li>Denúncias falsas podem prejudicar investigações.</li>
+        </ul>
+    </div>
+
+    <form class="form-denuncia" onsubmit="enviarDenuncia(event)">
+
+        <select id="tipoDenuncia" name="tipo" required>
+            <option value="">Selecione...</option>
+            <option>Iluminação Pública</option>
+            <option>Infraestrutura e Vias Públicas</option>
+            <option>Meio ambiente e Limpeza urbana</option>
+            <option>Pertubação do Sossego</option>
+            <option>Trânsito e Transporte público</option>
+            <option>Outra</option>
+        </select>
+
+    <textarea id="descricaoDenuncia" name="descricao" required></textarea>
+
+        <label for="local">Local da Ocorrência:</label>
+        <input type="text" id="endereco" name="endereco" placeholder="Ex: Rua X, Setor Y">
+
+        <label for="data">Data Aproximada:</label>
+        <input type="date" id="data" name="data">
+
+        <label for="anexo">Anexar Provas (opcional):</label>
+        <input type="file" id="anexo" name="anexo" accept="image/*,.pdf,.mp4,.mov">
+
+        <label for="identificacao">Deseja se identificar?</label>
+        <select id="identificacao" name="identificacao">
+            <option value="anonimo">Enviar anonimamente</option>
+            <option value="identificado">Prefiro me identificar</option>
+        </select>
+
+        <div id="dadosIdentificacao" class="hidden ident-box">
+            
+        <div class="formulario">
+            <div class="campo">
+                <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome" style="padding-right: 5px;"><br>
+            </div>
+            
+            <div class="campo">
+                <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" placeholder="email@exemplo.com"><br>
+            </div>
+            
+            <div class="campo">
+                <label for="telefone">Telefone (opcional):</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(xx) xxxxx-xxxx">
+            </div>
+        </div>
+    </div>
+
+        <button type="submit" class="btn-enviar">Enviar Denúncia</button>
+
+    </form>
+
+    <p class="sigilo">
+        Todas as informações enviadas são tratadas com total confidencialidade.
+        Se a opção anônima for escolhida, nenhum dado pessoal será coletado.
+    </p>
+
+</section>
+
+
+<section id="contato" class="pagina">
+
+  <h1 class="titulo-contato">Entre em Contato</h1>
+  <p class="sub-contato">
+    Precisa de ajuda, tem dúvidas ou deseja falar com nossa equipe?
+    Preencha o formulário abaixo.
+  </p>
+
+  <div class="contato-container">
+
+    <form class="form-contato" onsubmit="enviarContato(event)">
+
+      <div class="campo">
+        <label for="nomeContato">Nome Completo:</label>
+        <input id="nomeContato" type="text" placeholder="Seu nome">
+      </div>
+
+      <div class="campo">
+        <label for="emailContato">E-mail:</label>
+        <input id="emailContato" type="email" placeholder="email@exemplo.com" required>
+      </div>
+
+      <div class="campo">
+        <label for="telefoneContato">Telefone (opcional):</label>
+        <input id="telefoneContato" type="text" placeholder="(xx) xxxxx-xxxx">
+      </div>
+
+      <div class="campo">
+        <label for="mensagemContato">Mensagem:</label>
+        <textarea id="mensagemContato" rows="5" placeholder="Escreva sua mensagem" required></textarea>
+      </div>
+
+      <button type="submit" class="btn-contato">Enviar Mensagem</button>
+
+    </form>
+
+    <div class="info-contato">
+      <h2>Informações</h2>
+      <p><strong>E-mail:</strong><br> suporte@olhoalerta.com</p>
+      <p><strong>Telefone:</strong><br> (11) 90000-0000</p>
+      <p><strong>Horário:</strong><br> Segunda a Sexta, 08h às 18h</p>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+    <div class="redes">
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png"></a>
+    </div>
+</footer>
+
+<script>
+function mostrarPagina(id) {
+  const paginas = document.querySelectorAll(".pagina");
+  paginas.forEach(p => p.classList.remove("ativa"));
+
+  const paginaAtiva = document.getElementById(id);
+  if (paginaAtiva) {
+    paginaAtiva.classList.add("ativa");
+  }
+
+  history.pushState({ page: id }, "", `#${id}`);
+
+  const botoes = document.querySelectorAll("nav button");
+  botoes.forEach(btn => btn.classList.remove("ativo"));
+
+  if (event && event.target) {
+    event.target.classList.add("ativo");
+  }
+
+  window.scrollTo(0, 0);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".categorias button").forEach(botao => {
+    botao.addEventListener("click", function () {
+      const texto = this.innerText;
+      const campoBusca = document.querySelector(".busca-publica input");
+
+      if (campoBusca) {
+        campoBusca.value = texto;
+      }
+    });
+  });
+});
+
+async function enviarContato(e) {
+  e.preventDefault();
+
+  const dados = {
+    nome: document.getElementById("nomeContato").value || null,
+    email: document.getElementById("emailContato").value,
+    telefone: document.getElementById("telefoneContato").value || null,
+    mensagem: document.getElementById("mensagemContato").value
+  };
+
+  const res = await fetch("http://localhost:3000/contato", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dados)
+  });
+
+  alert(res.ok
+    ? "✅ Mensagem enviada com sucesso!"
+    : "❌ Erro ao enviar mensagem."
+  );
+
+  if (res.ok) e.target.reset();
+}
+
+async function enviarFeedback(e) {
+  e.preventDefault();
+
+  const dados = {
+    nome: document.getElementById("nomeFeedback").value || "Anônimo",
+    tipo: document.getElementById("tipoFeedback").value,
+    mensagem: document.getElementById("mensagemFeedback").value
+  };
+
+  const res = await fetch("http://localhost:3000/feedback", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dados)
+  });
+
+  document.getElementById("retornoFeedback").innerText =
+    res.ok ? "✅ Feedback enviado!" : "❌ Erro ao enviar.";
+}
+
+async function enviarSugestao(e) {
+  e.preventDefault();
+
+  const dados = {
+    nome: document.getElementById("nomeSugestao").value || "Anônimo",
+    categoria: document.getElementById("categoriaSugestao").value,
+    mensagem: document.getElementById("mensagemSugestao").value
+  };
+
+  const res = await fetch("http://localhost:3000/sugestao", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dados)
+  });
+
+  document.getElementById("retornoSugestao").innerText =
+    res.ok ? "✅ Sugestão enviada!" : "❌ Erro ao enviar.";
+}
+
+window.addEventListener("popstate", function () {
+  const hash = window.location.hash.replace("#", "");
+
+  if (hash) {
+    const paginas = document.querySelectorAll(".pagina");
+    paginas.forEach(p => p.classList.remove("ativa"));
+
+    const paginaAtiva = document.getElementById(hash);
+    if (paginaAtiva) {
+      paginaAtiva.classList.add("ativa");
+    }
+  }
+});
+async function enviarDenuncia(e) {
+  e.preventDefault();
+
+  const dados = {
+    tipo: document.getElementById("tipoDenuncia").value,
+    descricao: document.getElementById("descricaoDenuncia").value,
+    endereco: document.getElementById("endereco").value,
+    data: document.getElementById("data").value,
+    identificacao: document.getElementById("identificacao").value,
+    nome: document.getElementById("nome")?.value || null,
+    email: document.getElementById("email")?.value || null,
+    telefone: document.getElementById("telefone")?.value || null
+  };
+
+  const res = await fetch("http://localhost:3000/denuncias", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dados)
+  });
+
+  if (res.ok) {
+    alert("✅ Denúncia enviada com sucesso!");
+    e.target.reset();
+  } else {
+    alert("❌ Erro ao enviar denúncia.");
+  }
+}
+</script>
+
+</body>
+</html>
