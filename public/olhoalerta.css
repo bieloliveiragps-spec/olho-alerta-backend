@@ -68,7 +68,7 @@ header {
   font-size: 32px;
   color: #002f4b;
   cursor: pointer;
-  margin-left: 50px;
+  margin-left: 56px;
 }
 
 /* ===== MOBILE ===== */
@@ -306,6 +306,10 @@ header {
 .form-denuncia textarea {
     min-height: 130px;
     resize: vertical;
+}
+
+.hidden {
+  display: none;
 }
 
 .ident-box {
