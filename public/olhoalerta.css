@@ -53,7 +53,7 @@ header {
 }
 
 .nav-links a {
-  color: #002f4b;
+  color: #fff;
   font-weight: 500;
   font-size: 26px;
   text-decoration: none;
@@ -65,9 +65,10 @@ header {
   display: none;
   background: none;
   border: none;
-  font-size: 26px;
-  color: #fff;
+  font-size: 32px;
+  color: #002f4b;
   cursor: pointer;
+  margin-left: 58px;
 }
 
 /* ===== MOBILE ===== */
@@ -84,7 +85,7 @@ header {
     position: absolute;
     top: 70px;
     right: 20px;
-    background: #0a4ea3;
+    background: #002f4b;
     flex-direction: column;
     width: 200px;
     padding: 15px;
@@ -374,19 +375,22 @@ header {
 .contato-container {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 50px;
     padding: 60px;
-    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
     flex-wrap: wrap;
 }
 
 .form-contato {
-    width: 45%;
-    min-width: 350px;
+    width: 100%;
+    max-width: 500px;
     background: #f2f7fc;
     padding: 25px;
     border-radius: 12px;
     border-left: 5px solid #12b459;
+    margin: 0 auto;
 }
 
 .campo {
