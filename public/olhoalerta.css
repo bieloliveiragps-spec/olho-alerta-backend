@@ -20,7 +20,7 @@ main {
 
 /* ===== HEADER BASE ===== */
 header {
-  background: #0a4ea3;
+  background: #d4d9d2;
   padding: 12px 20px;
 }
 
@@ -38,12 +38,12 @@ header {
 }
 
 .logo img {
-  width: 40px;
+  width: 90px;
 }
 
 .titulo {
-  color: #fff;
-  font-size: 18px;
+  color: #002f4b;
+  font-size: 36px;
 }
 
 /* NAV DESKTOP */
@@ -53,8 +53,11 @@ header {
 }
 
 .nav-links a {
-  color: #fff;
+  color: #002f4b;
   font-weight: 500;
+  font-size: 26px;
+  text-decoration: none;
+  margin-right: 10px;
 }
 
 /* BOTÃO MENU (DESKTOP OCULTO) */
