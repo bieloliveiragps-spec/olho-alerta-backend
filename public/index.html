@@ -74,22 +74,22 @@
   <div class="formulario-acesso">
     <h2>📝 Solicitar Informação Oficial</h2>
 
-<form onsubmit="enviarAcesso(event)">
+<form action="http://localhost:3000/acessos" method="POST">
 
   <input type="text" id="nomeAcesso" placeholder="Nome (opcional)">
 
   <input type="email" id="emailAcesso" placeholder="E-mail para resposta" required>
 
-  <select id="orgaoAcesso" required>
+  <select id="orgaoAcesso" name="orgao" required>
     <option value="">Órgão público responsável</option>
     <option>Prefeitura</option>
     <option>Secretaria de Saúde</option>
     <option>Secretaria de Educação</option>
     <option>Câmara Municipal</option>
     <option>Outro</option>
-  </select>
+</select>
 
-  <select id="tipoAcesso" required>
+<select id="tipoAcesso" name="tipo" required>
     <option value="">Tipo de informação solicitada</option>
     <option>Gastos públicos</option>
     <option>Contratos</option>
@@ -99,29 +99,29 @@
     <option>Saúde</option>
     <option>Transporte</option>
     <option>Outros</option>
-  </select>
+</select>
 
-  <textarea
+<textarea
     id="descricaoAcesso"
+    name="descricao"
     required
     placeholder="Descreva de forma clara a informação desejada. Ex: Relatório de gastos com merenda escolar em 2024.">
-  </textarea>
+</textarea>
 
-  <select id="formatoAcesso">
+<select id="formatoAcesso" name="formato">
     <option>Digital (PDF)</option>
     <option>Planilha (Excel)</option>
     <option>Texto simples</option>
-  </select>
+</select>
 
-  <select id="finalidadeAcesso">
+<select id="finalidadeAcesso" name="finalidade">
     <option>Fiscalização cidadã</option>
     <option>Estudo ou pesquisa</option>
     <option>Uso pessoal</option>
     <option>Outros</option>
-  </select>
+</select>
 
-  <button type="submit">📩 Enviar Pedido de Acesso</button>
-
+<button type="submit">📩 Enviar Pedido de Acesso</button>
 </form>
 
   </div>
@@ -136,21 +136,20 @@
   <div class="form-feedback">
     <h2>✍️ Enviar Feedback</h2>
 
-<form onsubmit="enviarFeedback(event)">
-  <input type="text" id="nomeFeedback" placeholder="Seu nome (opcional)">
-  
-  <select id="tipoFeedback" required>
-    <option value="">Tipo de Feedback</option>
-    <option>Elogio</option>
-    <option>Reclamação</option>
-    <option>Sugestão</option>
-    <option>Crítica construtiva</option>
+<form action="http://localhost:3000/feedbacks" method="POST">
+  <input type="text" name="nome" id="nomeFeedback">
+
+  <input type="email" name="email" id="emailFeedback">
+
+  <select name="tipo" id="tipoFeedback" required>
+    <option value="">Selecione</option>
+    <option value="elogio">Elogio</option>
+    <option value="reclamacao">Reclamação</option>
   </select>
 
-  <textarea id="mensagemFeedback" required></textarea>
+  <textarea name="descricao" id="descricaoFeedback" required></textarea>
 
-  <button type="submit">Enviar Feedback</button>
-  <p id="retornoFeedback"></p>
+  <button type="submit">Enviar</button>
 </form>
 
   </div>
@@ -186,22 +185,20 @@
   <div class="box-sugestao">
     <h2>✍️ Formulário de Sugestão</h2>
 
-<form onsubmit="enviarSugestao(event)">
-  <input type="text" id="nomeSugestao" placeholder="Seu nome (opcional)">
+<form action="http://localhost:3000/sugestoes" method="POST">
+  <input type="text" name="nome" id="nomeSugestao">
 
-  <select id="categoriaSugestao" required>
-    <option value="">Categoria</option>
-    <option>Site</option>
-    <option>Atendimento</option>
-    <option>Transparência</option>
-    <option>Segurança</option>
-    <option>Outros</option>
+  <input type="email" name="email" id="emailSugestao">
+
+  <select name="tipo" id="tipoSugestao" required>
+    <option value="">Selecione</option>
+    <option value="servico">Serviço</option>
+    <option value="infraestrutura">Infraestrutura</option>
   </select>
 
-  <textarea id="mensagemSugestao" required></textarea>
+  <textarea name="descricao" id="descricaoSugestao" required></textarea>
 
-  <button type="submit">Enviar Sugestão</button>
-  <p id="retornoSugestao"></p>
+  <button type="submit">Enviar</button>
 </form>
   </div>
 
@@ -350,9 +347,11 @@
         </ul>
     </div>
 
-<form class="form-denuncia" onsubmit="enviarDenuncia(event)">
+<form class="form-denuncia" 
+      action="http://localhost:3000/denuncias" 
+      method="POST">
 
-        <select id="tipoDenuncia" name="tipo" required>
+       <select id="tipoDenuncia" name="tipo" required>
             <option value="">Selecione...</option>
             <option>Iluminação Pública</option>
             <option>Infraestrutura e Vias Públicas</option>
@@ -362,7 +361,7 @@
             <option>Outra</option>
         </select>
 
-    <textarea id="descricaoDenuncia" name="descricao" required></textarea>
+  <textarea name="descricao" id="descricaoDenuncia" required></textarea>
 
         <label for="local">Local da Ocorrência:</label>
         <input type="text" id="endereco" name="endereco" placeholder="Ex: Rua X, Setor Y">
@@ -421,31 +420,18 @@
 
   <div class="contato-container">
 
-    <form class="form-contato" onsubmit="enviarContato(event)">
+<form action="http://localhost:3000/contatos" method="POST">
 
-      <div class="campo">
-        <label for="nomeContato">Nome Completo:</label>
-        <input id="nomeContato" type="text" placeholder="Seu nome">
-      </div>
+  <input type="text" name="nome" id="nomeContato">
 
-      <div class="campo">
-        <label for="emailContato">E-mail:</label>
-        <input id="emailContato" type="email" placeholder="email@exemplo.com" required>
-      </div>
+  <input type="email" name="email" id="emailContato" required>
 
-      <div class="campo">
-        <label for="telefoneContato">Telefone (opcional):</label>
-        <input id="telefoneContato" type="text" placeholder="(xx) xxxxx-xxxx">
-      </div>
+  <input type="text" name="telefone" id="telefoneContato">
 
-      <div class="campo">
-        <label for="mensagemContato">Mensagem:</label>
-        <textarea id="mensagemContato" rows="5" placeholder="Escreva sua mensagem" required></textarea>
-      </div>
+  <textarea name="descricao" id="mensagemContato" required></textarea>
 
-      <button type="submit" class="btn-contato">Enviar Mensagem</button>
-
-    </form>
+  <button type="submit">Enviar</button>
+</form>
 
     <div class="info-contato">
       <h2>Informações</h2>
@@ -480,139 +466,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
-/* =========================
-   ACESSO À INFORMAÇÃO
-========================= */
-async function enviarAcesso(e) {
-  e.preventDefault();
-
-  const dados = {
-    nome: document.getElementById("nomeAcesso")?.value || null,
-    email: document.getElementById("emailAcesso").value.trim(),
-    orgao: document.getElementById("orgaoAcesso").value.trim(),
-    tipo: document.getElementById("tipoAcesso").value,
-    descricao: document.getElementById("descricaoAcesso").value.trim(),
-    formato: document.getElementById("formatoAcesso").value,
-    finalidade: document.getElementById("finalidadeAcesso").value.trim()
-  };
-
-  const res = await fetch("/acessos", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(dados)
-});
-
-
-  alert(res.ok
-    ? "✅ Pedido de acesso enviado com sucesso!"
-    : "❌ Erro ao enviar pedido de acesso."
-  );
-
-  if (res.ok) e.target.reset();
-}
-
-/* =========================
-   CONTATO
-========================= */
-async function enviarContato(e) {
-  e.preventDefault();
-
-  const dados = {
-    nome: document.getElementById("nomeContato")?.value || null,
-    email: document.getElementById("emailContato").value.trim(),
-    telefone: document.getElementById("telefoneContato")?.value || null,
-    mensagem: document.getElementById("mensagemContato").value.trim()
-  };
-
-  const res = await fetch("/contatos", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(dados)
-});
-
-  alert(res.ok
-    ? "✅ Mensagem enviada com sucesso!"
-    : "❌ Erro ao enviar mensagem."
-  );
-
-  if (res.ok) e.target.reset();
-}
-
-/* =========================
-   FEEDBACK
-========================= */
-async function enviarFeedback(e) {
-  e.preventDefault();
-
-  const dados = {
-    nome: document.getElementById("nomeFeedback")?.value || "Anônimo",
-    tipo: document.getElementById("tipoFeedback").value,
-    mensagem: document.getElementById("mensagemFeedback").value.trim()
-  };
-
-  const res = await fetch("/feedbacks", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(dados)
-});
-
-  document.getElementById("retornoFeedback").innerText =
-    res.ok ? "✅ Feedback enviado!" : "❌ Erro ao enviar.";
-
-  if (res.ok) e.target.reset();
-}
-
-/* =========================
-   SUGESTÃO
-========================= */
-async function enviarSugestao(e) {
-  e.preventDefault();
-
-  const dados = {
-    nome: document.getElementById("nomeSugestao")?.value || "Anônimo",
-    categoria: document.getElementById("categoriaSugestao").value,
-    mensagem: document.getElementById("mensagemSugestao").value.trim()
-  };
-
-  const res = await fetch("/sugestoes", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(dados)
-});
-
-  document.getElementById("retornoSugestao").innerText =
-    res.ok ? "✅ Sugestão enviada!" : "❌ Erro ao enviar.";
-
-  if (res.ok) e.target.reset();
-}
-
-/* =========================
-   DENÚNCIA
-========================= */
-async function enviarDenuncia(e) {
-  e.preventDefault();
-
-  const dados = {
-    tipo: document.getElementById("tipoDenuncia").value,
-    descricao: document.getElementById("descricaoDenuncia").value.trim(),
-    endereco: document.getElementById("endereco")?.value || null,
-    data: document.getElementById("data")?.value || null
-  };
-
-  const res = await fetch("/denuncias", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(dados)
-});
-
-  alert(res.ok
-    ? "✅ Denúncia enviada com sucesso!"
-    : "❌ Erro ao enviar denúncia."
-  );
-
-  if (res.ok) e.target.reset();
-}
 
 /* =========================
    MENU MOBILE
@@ -656,18 +509,74 @@ selectIdentificacao.addEventListener("change", () => {
     boxIdentificacao.classList.add("hidden");
   }
 });
-const identificacao = document.getElementById("identificacao").value;
+document.addEventListener("DOMContentLoaded", () => {
 
-const dados = {
-  tipo,
-  descricao,
-  endereco,
-  data,
-  identificacao,
-  nome: identificacao === "identificado" ? document.getElementById("nome")?.value : null,
-  email: identificacao === "identificado" ? document.getElementById("email")?.value : null,
-  telefone: identificacao === "identificado" ? document.getElementById("telefone")?.value : null
-};
+  function enviarFormulario(formId, url, campos) {
+    const form = document.getElementById(formId);
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault(); // impede o recarregamento da página
+
+      // pega os dados do formulário
+      const dados = {};
+      campos.forEach(c => {
+        const el = document.getElementById(c);
+        if(el) dados[c] = el.value.trim();
+      });
+
+      // altera o botão para "Enviando..."
+      const botao = form.querySelector("button[type='submit']");
+      const textoOriginal = botao.innerText;
+      botao.innerText = "Enviando...";
+
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(dados)
+        });
+
+        if(res.ok){
+          alert("✅ Enviado com sucesso!");
+          form.reset();
+        } else {
+          alert("❌ Erro ao enviar!");
+        }
+      } catch(err){
+        alert("❌ Erro ao enviar!");
+        console.error(err);
+      } finally {
+        botao.innerText = textoOriginal;
+      }
+    });
+  }
+
+  // DENÚNCIAS
+  enviarFormulario("formDenuncia", "/denuncias", [
+    "tipoDenuncia", "descricaoDenuncia", "enderecoDenuncia", "data", "identificacao", "nome", "email", "telefone"
+  ]);
+
+  // SUGESTÕES
+  enviarFormulario("formSugestao", "/sugestoes", [
+    "nomeSugestao", "emailSugestao", "tipoSugestao", "descricaoSugestao"
+  ]);
+
+  // FEEDBACK
+  enviarFormulario("formFeedback", "/feedbacks", [
+    "nomeFeedback", "emailFeedback", "tipoFeedback", "descricaoFeedback"
+  ]);
+
+  // CONTATO
+  enviarFormulario("formContato", "/contatos", [
+    "nomeContato", "emailContato", "telefoneContato", "mensagemContato"
+  ]);
+
+  // ACESSO
+  enviarFormulario("formAcesso", "/acessos", [
+    "nomeAcesso", "emailAcesso", "orgaoAcesso", "tipoAcesso", "descricaoAcesso", "formatoAcesso", "finalidadeAcesso"
+  ]);
+
+});
 
 </script>
 
