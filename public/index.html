@@ -74,7 +74,7 @@
   <div class="formulario-acesso">
     <h2>📝 Solicitar Informação Oficial</h2>
 
-<form action="http://localhost:3000/acessos" method="POST">
+<form id="formDenuncia">
 
   <input type="text" id="nomeAcesso" placeholder="Nome (opcional)">
 
@@ -420,7 +420,7 @@
 
   <div class="contato-container">
 
-<form action="http://localhost:3000/contatos" method="POST">
+<form action="" method="POST">
 
   <input type="text" name="nome" id="nomeContato">
 
@@ -577,7 +577,63 @@ document.addEventListener("DOMContentLoaded", () => {
   ]);
 
 });
+function mostrarPagina(id, event) {
+  if (event) event.preventDefault();
 
+  document.querySelectorAll(".pagina").forEach(p => p.classList.remove("ativa"));
+  document.getElementById(id).classList.add("ativa");
+
+  history.pushState({ pagina: id }, "", "#" + id);
+  window.scrollTo(0, 0);
+
+  navLinks.classList.remove("active");
+}
+
+window.addEventListener("popstate", () => {
+  const pagina = location.hash.replace("#", "") || "inicio";
+  document.querySelectorAll(".pagina").forEach(p => p.classList.remove("ativa"));
+  document.getElementById(pagina).classList.add("ativa");
+});
+
+/* =========================
+   ENVIO DE FORMULÁRIOS (SEM REDIRECIONAR)
+========================= */
+document.querySelectorAll("form").forEach(form => {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const dados = {};
+    form.querySelectorAll("input, select, textarea").forEach(el => {
+      if (el.name) dados[el.name] = el.value;
+    });
+
+    await fetch(form.action, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dados)
+    });
+
+    const pagina = form.closest(".pagina").id;
+    const nome =
+      pagina === "sugestoes" ? "Sugestão" :
+      pagina === "denunciar" ? "Denúncia" :
+      pagina === "feedback"  ? "Feedback" :
+      pagina === "contato"   ? "Mensagem" :
+      pagina === "acesso"    ? "Pedido de acesso" :
+      "Formulário";
+
+    alert("✅ " + nome + " enviada");
+    form.reset();
+  });
+});
+
+/* =========================
+   PÁGINA INICIAL PELO HASH
+========================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const pagina = location.hash.replace("#", "") || "inicio";
+  mostrarPagina(pagina);
+});
 </script>
 
 </body>
