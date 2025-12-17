@@ -411,7 +411,6 @@
 
 
 <section id="contato" class="pagina">
-
   <h1 class="titulo-contato">Entre em Contato</h1>
   <p class="sub-contato">
     Precisa de ajuda, tem dúvidas ou deseja falar com nossa equipe?
@@ -420,24 +419,25 @@
 
   <div class="contato-container">
 
-<form action="" method="POST">
-
-  <input type="text" name="nome" id="nomeContato">
-
-  <input type="email" name="email" id="emailContato" required>
-
-  <input type="text" name="telefone" id="telefoneContato">
-
-  <textarea name="descricao" id="mensagemContato" required></textarea>
-
-  <button type="submit">Enviar</button>
-</form>
+    <form id="formContato" class="form-contato" action="/contatos" method="POST">
+      <input type="text" name="nomeContato" placeholder="Nome" required>
+      <input type="email" name="emailContato" placeholder="E-mail" required>
+      <input type="tel" name="telefoneContato" placeholder="Telefone">
+      <textarea name="mensagemContato" placeholder="Mensagem" required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
 
     <div class="info-contato">
       <h2>Informações</h2>
       <p><strong>E-mail:</strong><br> suporte@olhoalerta.com</p>
       <p><strong>Telefone:</strong><br> (11) 90000-0000</p>
       <p><strong>Horário:</strong><br> Segunda a Sexta, 08h às 18h</p>
+
+      <div class="contato-redes">
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram"></a>
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter"></a>
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" alt="WhatsApp"></a>
+      </div>
     </div>
 
   </div>
@@ -455,9 +455,6 @@
 
 <script>
 
-/* =========================
-   CATEGORIAS (BUSCA)
-========================= */
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".categorias button").forEach(botao => {
     botao.addEventListener("click", () => {
@@ -467,9 +464,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/* =========================
-   MENU MOBILE
-========================= */
+
 const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
 
@@ -477,9 +472,7 @@ menuToggle.addEventListener("click", () => {
   navLinks.classList.toggle("active");
 });
 
-/* =========================
-   NAVEGAÇÃO DE PÁGINAS
-========================= */
+
 function mostrarPagina(id, event) {
   document.querySelectorAll(".pagina").forEach(p => p.classList.remove("ativa"));
   document.getElementById(id).classList.add("ativa");
@@ -511,39 +504,87 @@ selectIdentificacao.addEventListener("change", () => {
 });
 document.addEventListener("DOMContentLoaded", () => {
 
-  function enviarFormulario(formId, url, campos) {
+  /* =========================
+     CATEGORIAS (BUSCA)
+  ========================= */
+  document.querySelectorAll(".categorias button").forEach(botao => {
+    botao.addEventListener("click", () => {
+      const campoBusca = document.querySelector(".busca-publica input");
+      if (campoBusca) campoBusca.value = botao.innerText;
+    });
+  });
+
+  /* =========================
+     MENU MOBILE
+  ========================= */
+  const menuToggle = document.getElementById("menuToggle");
+  const navLinks = document.getElementById("navLinks");
+
+  menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+      navLinks.classList.remove("active");
+    }
+  });
+
+  /* =========================
+     NAVEGAÇÃO DE PÁGINAS
+  ========================= */
+  function mostrarPagina(id, event) {
+    if (event) event.preventDefault();
+
+    document.querySelectorAll(".pagina").forEach(p => p.classList.remove("ativa"));
+    const paginaEl = document.getElementById(id);
+    if(paginaEl) paginaEl.classList.add("ativa");
+
+    history.pushState({ pagina: id }, "", "#" + id);
+    window.scrollTo(0, 0);
+    navLinks.classList.remove("active");
+  }
+
+  window.addEventListener("popstate", () => {
+    const pagina = location.hash.replace("#", "") || "inicio";
+    mostrarPagina(pagina);
+  });
+
+  /* =========================
+     FORMULÁRIOS (SEM REDIRECIONAR)
+  ========================= */
+  function enviarFormulario(formId, campos, nomeFormulario) {
     const form = document.getElementById(formId);
+    if(!form) return;
 
     form.addEventListener("submit", async (e) => {
-      e.preventDefault(); // impede o recarregamento da página
+      e.preventDefault();
 
-      // pega os dados do formulário
       const dados = {};
       campos.forEach(c => {
-        const el = document.getElementById(c);
+        const el = form.querySelector(`[name="${c}"]`);
         if(el) dados[c] = el.value.trim();
       });
 
-      // altera o botão para "Enviando..."
       const botao = form.querySelector("button[type='submit']");
       const textoOriginal = botao.innerText;
       botao.innerText = "Enviando...";
 
       try {
-        const res = await fetch(url, {
+        const res = await fetch(form.action, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(dados)
         });
 
         if(res.ok){
-          alert("✅ Enviado com sucesso!");
+          alert(`✅ ${nomeFormulario} enviada`);
           form.reset();
         } else {
-          alert("❌ Erro ao enviar!");
+          alert(`❌ Erro ao enviar ${nomeFormulario.toLowerCase()}`);
         }
       } catch(err){
-        alert("❌ Erro ao enviar!");
+        alert(`❌ Erro ao enviar ${nomeFormulario.toLowerCase()}`);
         console.error(err);
       } finally {
         botao.innerText = textoOriginal;
@@ -551,88 +592,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // DENÚNCIAS
-  enviarFormulario("formDenuncia", "/denuncias", [
-    "tipoDenuncia", "descricaoDenuncia", "enderecoDenuncia", "data", "identificacao", "nome", "email", "telefone"
-  ]);
+  // Formularios
+  enviarFormulario("formDenuncia", ["tipoDenuncia", "descricaoDenuncia", "enderecoDenuncia", "data", "identificacao", "nome", "email", "telefone"], "Denúncia");
+  enviarFormulario("formSugestao", ["nomeSugestao", "emailSugestao", "tipoSugestao", "descricaoSugestao"], "Sugestão");
+  enviarFormulario("formFeedback", ["nomeFeedback", "emailFeedback", "tipoFeedback", "descricaoFeedback"], "Feedback");
+  enviarFormulario("formContato", ["nomeContato", "emailContato", "telefoneContato", "mensagemContato"], "Mensagem");
+  enviarFormulario("formAcesso", ["nomeAcesso", "emailAcesso", "orgaoAcesso", "tipoAcesso", "descricaoAcesso", "formatoAcesso", "finalidadeAcesso"], "Pedido de Acesso");
 
-  // SUGESTÕES
-  enviarFormulario("formSugestao", "/sugestoes", [
-    "nomeSugestao", "emailSugestao", "tipoSugestao", "descricaoSugestao"
-  ]);
+  /* =========================
+     IDENTIFICAÇÃO
+  ========================= */
+  const selectIdentificacao = document.getElementById("identificacao");
+  const boxIdentificacao = document.getElementById("dadosIdentificacao");
 
-  // FEEDBACK
-  enviarFormulario("formFeedback", "/feedbacks", [
-    "nomeFeedback", "emailFeedback", "tipoFeedback", "descricaoFeedback"
-  ]);
-
-  // CONTATO
-  enviarFormulario("formContato", "/contatos", [
-    "nomeContato", "emailContato", "telefoneContato", "mensagemContato"
-  ]);
-
-  // ACESSO
-  enviarFormulario("formAcesso", "/acessos", [
-    "nomeAcesso", "emailAcesso", "orgaoAcesso", "tipoAcesso", "descricaoAcesso", "formatoAcesso", "finalidadeAcesso"
-  ]);
-
-});
-function mostrarPagina(id, event) {
-  if (event) event.preventDefault();
-
-  document.querySelectorAll(".pagina").forEach(p => p.classList.remove("ativa"));
-  document.getElementById(id).classList.add("ativa");
-
-  history.pushState({ pagina: id }, "", "#" + id);
-  window.scrollTo(0, 0);
-
-  navLinks.classList.remove("active");
-}
-
-window.addEventListener("popstate", () => {
-  const pagina = location.hash.replace("#", "") || "inicio";
-  document.querySelectorAll(".pagina").forEach(p => p.classList.remove("ativa"));
-  document.getElementById(pagina).classList.add("ativa");
-});
-
-/* =========================
-   ENVIO DE FORMULÁRIOS (SEM REDIRECIONAR)
-========================= */
-document.querySelectorAll("form").forEach(form => {
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const dados = {};
-    form.querySelectorAll("input, select, textarea").forEach(el => {
-      if (el.name) dados[el.name] = el.value;
+  if(selectIdentificacao){
+    selectIdentificacao.addEventListener("change", () => {
+      if (selectIdentificacao.value === "identificado") {
+        boxIdentificacao.classList.remove("hidden");
+      } else {
+        boxIdentificacao.classList.add("hidden");
+      }
     });
+  }
 
-    await fetch(form.action, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(dados)
-    });
+  
+  const paginaInicial = location.hash.replace("#", "") || "inicio";
+  mostrarPagina(paginaInicial);
 
-    const pagina = form.closest(".pagina").id;
-    const nome =
-      pagina === "sugestoes" ? "Sugestão" :
-      pagina === "denunciar" ? "Denúncia" :
-      pagina === "feedback"  ? "Feedback" :
-      pagina === "contato"   ? "Mensagem" :
-      pagina === "acesso"    ? "Pedido de acesso" :
-      "Formulário";
-
-    alert("✅ " + nome + " enviada");
-    form.reset();
-  });
-});
-
-/* =========================
-   PÁGINA INICIAL PELO HASH
-========================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const pagina = location.hash.replace("#", "") || "inicio";
-  mostrarPagina(pagina);
 });
 </script>
 
