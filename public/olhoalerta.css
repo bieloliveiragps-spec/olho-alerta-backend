@@ -18,61 +18,90 @@ main {
 }
 
 
+/* ===== HEADER BASE ===== */
 header {
-  background-color: #d4d9d2;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 40px;
-  position: sticky;
-  top: 0;
-  z-index: 20;
+  background: #0a4ea3;
+  padding: 12px 20px;
 }
 
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LOGO */
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-.icon {
-  width: 65px;
+.logo img {
+  width: 40px;
 }
 
 .titulo {
-  font-size: 32px;
-  font-weight: 700;
-  color: #002f4b;
+  color: #fff;
+  font-size: 18px;
 }
 
+/* NAV DESKTOP */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
 
-nav button {
+.nav-links a {
+  color: #fff;
+  font-weight: 500;
+}
+
+/* BOTÃO MENU (DESKTOP OCULTO) */
+.menu-toggle {
+  display: none;
   background: none;
   border: none;
-  margin: 0 18px;
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 26px;
+  color: #fff;
   cursor: pointer;
-  color: #1d1d1d;
-  transition: 0.2s;
 }
 
-nav button:hover,
-nav button.ativo {
-  color: #022d4b;
-  text-decoration: underline;
-}
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
 
-.modo-btn {
-  background: none;
-  font-size: 32px;
-  border: none;
-  cursor: pointer;
-  background-color: black;
-  border-radius: 8px;
-  padding-bottom: 8px;
-}
+  /* MOSTRA O BOTÃO */
+  .menu-toggle {
+    display: block;
+  }
 
+  /* ESCONDE MENU */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background: #0a4ea3;
+    flex-direction: column;
+    width: 200px;
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  /* MENU ATIVO */
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links a {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .nav-links a:last-child {
+    border-bottom: none;
+  }
+}
 
 .pagina {
   display: none;
@@ -289,11 +318,7 @@ nav button.ativo {
     max-width: 500px; 
 }
 
-.campo {
-    display: flex;
-    flex-direction: column; 
-    margin-bottom: 25px;
-}
+
 
 .campo label {
     font-size: 18px;
@@ -698,21 +723,166 @@ footer .redes img:hover {
 }
 
 
-@media (max-width: 900px) {
-  .titulo-principal {
-    font-size: 42px;
+@media (max-width: 768px) {
+
+  body {
+    font-size: 15px;
+    line-height: 1.6;
   }
 
+  main {
+    padding: 16px;
+  }
+
+  section {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+  }
+
+  /* HEADER */
+  header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 12px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo img {
+    width: 36px;
+    height: 36px;
+  }
+
+ 
+
+  /* Botões principais */
   .botoes-container {
+    display: grid;
     grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 40px;
   }
 
-  .cards {
-    grid-template-columns: 1fr;
+  .botao {
+    font-size: 16px;
+    padding: 16px;
+    border-radius: 14px;
   }
 
-  .hero p,
-  .section p {
-    width: 100%;
+  .titulo-principal {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
   }
+
+  .descricao {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* FORMULÁRIOS */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 14px;
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  textarea {
+    min-height: 120px;
+  }
+
+  button {
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 15px;
+  }
+
+  /* CARDS */
+  .feedbacks-recentes,
+  .sugestoes-recentes,
+  .cards,
+  .tutorial-passos {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .card,
+  .card-feedback,
+  .card-sugestao,
+  .passo,
+  .form-denuncia,
+  .form-contato,
+  .info-contato {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .categorias {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .categorias button {
+    font-size: 13px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .contato-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  footer {
+    padding: 20px 0;
+  }
+
+  .redes {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+  }
+
+  .redes img {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Botão modo escuro */
+  .modo-btn {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    z-index: 1000;
+  }
+  
 }
