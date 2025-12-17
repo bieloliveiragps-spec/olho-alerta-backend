@@ -43,7 +43,7 @@ header {
 
 .titulo {
   color: #002f4b;
-  font-size: 36px;
+  font-size: 26px;
 }
 
 /* NAV DESKTOP */
@@ -68,7 +68,7 @@ header {
   font-size: 32px;
   color: #002f4b;
   cursor: pointer;
-  margin-left: 58px;
+  margin-left: 50px;
 }
 
 /* ===== MOBILE ===== */
